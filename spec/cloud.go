@@ -206,10 +206,11 @@ func (g *GCEGenerator) Generate() (interface{}, error) {
 }
 
 type gceInstance struct {
-	Zone         string
-	InstanceType string `json:"machineType"`
-	Hostname     string
-	InstanceID   uint64 `json:"id"`
+	Zone             string
+	InstanceType     string `json:"machineType"`
+	Hostname         string
+	MaintenanceEvent string
+	InstanceID       uint64 `json:"id"`
 }
 
 type gceProject struct {
@@ -234,6 +235,7 @@ func (g gceMeta) toGeneratorMeta() map[string]string {
 		meta["hostname"] = ins.Hostname
 		meta["instance-id"] = fmt.Sprint(ins.InstanceID)
 		meta["instance-type"] = lastS(ins.InstanceType)
+		meta["maintenance-event"] = ins.MaintenanceEvent
 		meta["zone"] = lastS(ins.Zone)
 	}
 

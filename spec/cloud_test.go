@@ -147,10 +147,11 @@ func TestGCEGenerate(t *testing.T) {
 	json.Unmarshal(sampleJSON, &data)
 
 	if !reflect.DeepEqual(data.Instance, &gceInstance{
-		Zone:         "projects/1234567890123/zones/asia-east1-a",
-		InstanceType: "projects/1234567890123/machineTypes/g1-small",
-		Hostname:     "gce-1.c.dummyproj-987.internal",
-		InstanceID:   4567890123456789123,
+		Zone:             "projects/1234567890123/zones/asia-east1-a",
+		InstanceType:     "projects/1234567890123/machineTypes/g1-small",
+		Hostname:         "gce-1.c.dummyproj-987.internal",
+		MaintenanceEvent: "NONE",
+		InstanceID:       4567890123456789123,
 	}) {
 		t.Errorf("data.Instance should be assigned")
 	}
@@ -163,11 +164,12 @@ func TestGCEGenerate(t *testing.T) {
 	}
 
 	if d := data.toGeneratorMeta(); !reflect.DeepEqual(d, map[string]string{
-		"zone":          "asia-east1-a",
-		"instance-type": "g1-small",
-		"hostname":      "gce-1.c.dummyproj-987.internal",
-		"instance-id":   "4567890123456789123",
-		"projectId":     "dummyprof-987",
+		"zone":              "asia-east1-a",
+		"instance-type":     "g1-small",
+		"hostname":          "gce-1.c.dummyproj-987.internal",
+		"instance-id":       "4567890123456789123",
+		"maintenance-event": "NONE",
+		"projectId":         "dummyprof-987",
 	}) {
 		t.Errorf("data.Project should be assigned")
 	}
